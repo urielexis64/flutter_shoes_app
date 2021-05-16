@@ -23,7 +23,8 @@ class ShoePage extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          AddCartButton(mount: 180.0)
         ],
       ),
     );
