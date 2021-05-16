@@ -16,7 +16,7 @@ class AddCartButton extends StatelessWidget {
         width: double.infinity,
         height: 80,
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.15),
+          color: Colors.grey.withOpacity(0.1),
           borderRadius: BorderRadius.circular(100),
         ),
         child: Row(
