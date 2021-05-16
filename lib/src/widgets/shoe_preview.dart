@@ -22,7 +22,7 @@ class _ShadowSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -38,34 +38,49 @@ class _ShadowSize extends StatelessWidget {
   }
 }
 
-class _SizeBox extends StatelessWidget {
+class _SizeBox extends StatefulWidget {
   final double size;
   _SizeBox(
     this.size,
   );
 
   @override
+  __SizeBoxState createState() => __SizeBoxState();
+}
+
+class __SizeBoxState extends State<_SizeBox> {
+  bool _active = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      alignment: Alignment.center,
-      child: Text(
-        '${size.toString().replaceAll('.0', '')}',
-        style: TextStyle(
-            color: Color(0xffF1A23A),
-            fontSize: 16,
-            fontWeight: FontWeight.bold),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _active = !_active;
+        });
+      },
+      child: Container(
+        width: 40,
+        height: 40,
+        alignment: Alignment.center,
+        child: Text(
+          '${widget.size.toString().replaceAll('.0', '')}',
+          style: TextStyle(
+              color: _active ? Colors.white : Color(0xffF1A23A),
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
+        ),
+        decoration: BoxDecoration(
+            color: _active ? Color(0xffF1A23A) : Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 4,
+                  color: _active
+                      ? Color(0xffF1A23A)
+                      : Colors.black.withOpacity(0.2))
+            ]),
       ),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 4),
-                blurRadius: 8,
-                color: Colors.black.withOpacity(0.2))
-          ]),
     );
   }
 }
