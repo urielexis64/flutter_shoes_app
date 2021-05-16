@@ -24,7 +24,6 @@ class ShoeDescription extends StatelessWidget {
             this.description,
             style: TextStyle(color: Colors.black54, height: 1.4),
           ),
-          SizedBox(height: 20),
         ],
       ),
     );
