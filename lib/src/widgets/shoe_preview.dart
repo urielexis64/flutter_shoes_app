@@ -11,11 +11,61 @@ class ShoePreview extends StatelessWidget {
         decoration: BoxDecoration(
             color: Color(0xfff8d468), borderRadius: BorderRadius.circular(50)),
         child: Column(
-          children: [
-            _ShadowShoe(),
-          ],
+          children: [_ShadowShoe(), _ShadowSize()],
         ),
       ),
+    );
+  }
+}
+
+class _ShadowSize extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _SizeBox(7),
+          _SizeBox(7.5),
+          _SizeBox(8),
+          _SizeBox(8.5),
+          _SizeBox(9),
+          _SizeBox(9.5),
+        ],
+      ),
+    );
+  }
+}
+
+class _SizeBox extends StatelessWidget {
+  final double size;
+  _SizeBox(
+    this.size,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 40,
+      height: 40,
+      alignment: Alignment.center,
+      child: Text(
+        '${size.toString().replaceAll('.0', '')}',
+        style: TextStyle(
+            color: Color(0xffF1A23A),
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(0, 4),
+                blurRadius: 8,
+                color: Colors.black.withOpacity(0.2))
+          ]),
     );
   }
 }
