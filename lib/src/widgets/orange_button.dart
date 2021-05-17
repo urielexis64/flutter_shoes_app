@@ -14,13 +14,16 @@ class OrangeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: this.width,
+    return MaterialButton(
       height: this.height,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          color: Colors.orangeAccent.withOpacity(opacity)),
+      onPressed: () {},
+      shape: StadiumBorder(),
+      elevation: 0,
+      highlightElevation: 0,
+      splashColor: Colors.white60,
+      animationDuration: Duration(milliseconds: 1200),
+      highlightColor: Colors.transparent,
+      color: Colors.orangeAccent.withOpacity(opacity),
       child: Text(
         text,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
