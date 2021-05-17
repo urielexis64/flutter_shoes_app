@@ -114,17 +114,19 @@ class _SizeBox extends StatelessWidget {
 class _ShadowShoe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final assetImage = context.watch<ShoeModel>().assetImage;
+    final shoeProvider = context.watch<ShoeModel>();
 
-    return Padding(
-      padding: EdgeInsets.all(40),
+    return AnimatedPadding(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.bounceOut,
+      padding: EdgeInsets.all(100 - (shoeProvider.size * 8)),
       child: Stack(
         children: [
           Positioned(bottom: 10, right: 0, left: 0, child: _Shadow()),
           Hero(
             tag: 'shoe',
             child: Image(
-              image: AssetImage(assetImage),
+              image: AssetImage(shoeProvider.assetImage),
             ),
           )
         ],
