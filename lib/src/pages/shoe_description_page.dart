@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_app/src/helpers/helpers.dart';
 import 'package:shoes_app/src/models/shoe_model.dart';
 import 'package:shoes_app/src/widgets/custom_widgets.dart';
 
@@ -18,6 +19,7 @@ class ShoeDescriptionPage extends StatelessWidget {
                 left: 20,
                 child: FloatingActionButton(
                   onPressed: () {
+                    changeStatusDark();
                     Navigator.pop(context);
                   },
                   backgroundColor: Colors.transparent,
@@ -152,6 +154,7 @@ class _CircleColorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    changeStatusLight();
     final shoeProvider = context.watch<ShoeModel>();
     return FadeInLeft(
       duration: Duration(milliseconds: 500),
