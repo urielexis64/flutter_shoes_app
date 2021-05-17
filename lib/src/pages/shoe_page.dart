@@ -9,7 +9,7 @@ class ShoePage extends StatelessWidget {
       body: Column(
         children: [
           CustomAppBar(text: 'For you'),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),

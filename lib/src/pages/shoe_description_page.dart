@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_app/src/widgets/custom_widgets.dart';
 
@@ -14,7 +15,9 @@ class ShoeDescriptionPage extends StatelessWidget {
                 top: 60,
                 left: 20,
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                   highlightElevation: 0,
@@ -111,24 +114,14 @@ class _ColorsAndMore extends StatelessWidget {
               child: Stack(
             children: [
               Positioned(
-                left: 90,
-                child: _CircleColorButton(
-                  color: Color(0xffc6d642),
-                ),
+                left: 75,
+                child: _CircleColorButton(Color(0xffc6d642), 4),
               ),
               Positioned(
-                  left: 60,
-                  child: _CircleColorButton(
-                    color: Color(0xffffad29),
-                  )),
+                  left: 50, child: _CircleColorButton(Color(0xffffad29), 3)),
               Positioned(
-                  left: 30,
-                  child: _CircleColorButton(
-                    color: Color(0xff2099f1),
-                  )),
-              _CircleColorButton(
-                color: Color(0xff364d56),
-              ),
+                  left: 25, child: _CircleColorButton(Color(0xff2099f1), 2)),
+              _CircleColorButton(Color(0xff364d56), 1),
             ],
           )),
           OrangeButton(
@@ -145,15 +138,20 @@ class _ColorsAndMore extends StatelessWidget {
 
 class _CircleColorButton extends StatelessWidget {
   final Color color;
+  final int index;
 
-  _CircleColorButton({@required this.color});
+  _CircleColorButton(this.color, this.index);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 35,
-      height: 35,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: this.color),
+    return FadeInLeft(
+      duration: Duration(milliseconds: 500),
+      delay: Duration(milliseconds: 100 * index),
+      child: Container(
+        width: 35,
+        height: 35,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: this.color),
+      ),
     );
   }
 }
@@ -172,7 +170,10 @@ class _MountBuyNow extends StatelessWidget {
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             Spacer(),
-            OrangeButton(text: 'Buy Now')
+            Bounce(
+                delay: Duration(seconds: 1),
+                from: 10,
+                child: OrangeButton(text: 'Buy Now'))
           ],
         ),
       ),
