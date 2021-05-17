@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_app/src/models/shoe_model.dart';
 import 'package:shoes_app/src/widgets/custom_widgets.dart';
 
 class ShoeDescriptionPage extends StatelessWidget {
@@ -115,13 +117,18 @@ class _ColorsAndMore extends StatelessWidget {
             children: [
               Positioned(
                 left: 75,
-                child: _CircleColorButton(Color(0xffc6d642), 4),
+                child: _CircleColorButton(
+                    Color(0xffc6d642), 4, 'assets/img/verde.png'),
               ),
               Positioned(
-                  left: 50, child: _CircleColorButton(Color(0xffffad29), 3)),
+                  left: 50,
+                  child: _CircleColorButton(
+                      Color(0xffffad29), 3, 'assets/img/amarillo.png')),
               Positioned(
-                  left: 25, child: _CircleColorButton(Color(0xff2099f1), 2)),
-              _CircleColorButton(Color(0xff364d56), 1),
+                  left: 25,
+                  child: _CircleColorButton(
+                      Color(0xff2099f1), 2, 'assets/img/azul.png')),
+              _CircleColorButton(Color(0xff364d56), 1, 'assets/img/negro.png'),
             ],
           )),
           OrangeButton(
@@ -139,18 +146,31 @@ class _ColorsAndMore extends StatelessWidget {
 class _CircleColorButton extends StatelessWidget {
   final Color color;
   final int index;
+  final String urlAsset;
 
-  _CircleColorButton(this.color, this.index);
+  _CircleColorButton(this.color, this.index, this.urlAsset);
 
   @override
   Widget build(BuildContext context) {
+    final shoeProvider = context.watch<ShoeModel>();
     return FadeInLeft(
       duration: Duration(milliseconds: 500),
       delay: Duration(milliseconds: 100 * index),
-      child: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(shape: BoxShape.circle, color: this.color),
+      child: GestureDetector(
+        onTap: () => shoeProvider.assetImage = this.urlAsset,
+        child: Container(
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(
+              border: shoeProvider.assetImage == urlAsset
+                  ? Border.all(color: Colors.white, width: 1)
+                  : null,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(blurRadius: 4, spreadRadius: -2, color: Colors.black)
+              ],
+              color: this.color),
+        ),
       ),
     );
   }

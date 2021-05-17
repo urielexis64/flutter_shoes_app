@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_app/src/models/shoe_model.dart';
 import 'package:shoes_app/src/pages/shoe_description_page.dart';
 
 class ShoePreview extends StatelessWidget {
@@ -68,45 +70,39 @@ class _ShadowSize extends StatelessWidget {
   }
 }
 
-class _SizeBox extends StatefulWidget {
+class _SizeBox extends StatelessWidget {
   final double size;
   _SizeBox(
     this.size,
   );
 
   @override
-  __SizeBoxState createState() => __SizeBoxState();
-}
-
-class __SizeBoxState extends State<_SizeBox> {
-  bool _active = false;
-
-  @override
   Widget build(BuildContext context) {
+    final shoeProvider = context.watch<ShoeModel>();
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _active = !_active;
-        });
-      },
+      onTap: () => shoeProvider.size = this.size,
       child: Container(
         width: 40,
         height: 40,
         alignment: Alignment.center,
         child: Text(
-          '${widget.size.toString().replaceAll('.0', '')}',
+          '${size.toString().replaceAll('.0', '')}',
           style: TextStyle(
-              color: _active ? Colors.white : Color(0xffF1A23A),
+              color: shoeProvider.size == this.size
+                  ? Colors.white
+                  : Color(0xffF1A23A),
               fontSize: 16,
               fontWeight: FontWeight.bold),
         ),
         decoration: BoxDecoration(
-            color: _active ? Color(0xffF1A23A) : Colors.white,
+            color: shoeProvider.size == this.size
+                ? Color(0xffF1A23A)
+                : Colors.white,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                   blurRadius: 4,
-                  color: _active
+                  color: shoeProvider.size == this.size
                       ? Color(0xffF1A23A)
                       : Colors.black.withOpacity(0.2))
             ]),
@@ -118,6 +114,8 @@ class __SizeBoxState extends State<_SizeBox> {
 class _ShadowShoe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final assetImage = context.watch<ShoeModel>().assetImage;
+
     return Padding(
       padding: EdgeInsets.all(40),
       child: Stack(
@@ -126,7 +124,7 @@ class _ShadowShoe extends StatelessWidget {
           Hero(
             tag: 'shoe',
             child: Image(
-              image: AssetImage('assets/img/azul.png'),
+              image: AssetImage(assetImage),
             ),
           )
         ],
